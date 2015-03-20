@@ -7,75 +7,76 @@ window.onload = init;
 function init() {
     // the main tag should have been created
     var gallery = document.getElementById("gallery");
+    if (gallery) {
 
-    // for a big image
-    var bigImage = document.createElement("div");
-    bigImage.id = "big-image";
+        // for a big image
+        var bigImage = document.createElement("div");
+        bigImage.id = "big-image";
 
-    // an arrow to left
-    var arrowLeft = document.createElement("a");
-    arrowLeft.className = "arrow";
-    arrowLeft.id = "arrowLeft";
-    arrowLeft.innerHTML = "&lt;";
-    arrowLeft.href = "#";
+        // an arrow to left
+        var arrowLeft = document.createElement("a");
+        arrowLeft.className = "arrow";
+        arrowLeft.id = "arrowLeft";
+        arrowLeft.innerHTML = "&lt;";
+        arrowLeft.href = "#";
 
-    bigImage.appendChild(arrowLeft);
+        bigImage.appendChild(arrowLeft);
 
-    // a big image tag
-    var bigImageContent = document.createElement("img");
-    bigImageContent.id = "big-image-content";
-    bigImageContent.src = "./images/flowers0.jpg";
+        // a big image tag
+        var bigImageContent = document.createElement("img");
+        bigImageContent.id = "big-image-content";
+        bigImageContent.src = "./images/flowers0.jpg";
 
-    bigImage.appendChild(bigImageContent);
+        bigImage.appendChild(bigImageContent);
 
-    // an arrow to right
-    var arrowRight = document.createElement("a");
-    arrowRight.className = "arrow";
-    arrowRight.id = "arrowRight";
-    arrowRight.innerHTML = "&gt;";
-    arrowRight.href = "#";
+        // an arrow to right
+        var arrowRight = document.createElement("a");
+        arrowRight.className = "arrow";
+        arrowRight.id = "arrowRight";
+        arrowRight.innerHTML = "&gt;";
+        arrowRight.href = "#";
 
-    bigImage.appendChild(arrowRight);
+        bigImage.appendChild(arrowRight);
 
-    // a description
-    var description = document.createElement("div");
-    description.id = "description";
-    description.innerHTML = "hello";
-    bigImage.appendChild(description);
+        // a description
+        var description = document.createElement("div");
+        description.id = "description";
+        description.innerHTML = "hello";
+        bigImage.appendChild(description);
 
-    gallery.appendChild(bigImage);
+        gallery.appendChild(bigImage);
 
-    // a wrapper tag for smaller images
-    var wrapper = document.createElement("div");
-    wrapper.id = "wrapper";
-    wrapper.className = "moving";
+        // a wrapper tag for smaller images
+        var wrapper = document.createElement("div");
+        wrapper.id = "wrapper";
+        wrapper.className = "moving";
 
-    // add 8 images
-    var innerDivs = [];
-    for (var i=0; i<8; i++) {
-        innerDivs[i] = document.createElement("div");
-        innerDivs[i].className = "image";
+        // add 8 images
+        var innerDivs = [];
+        for (var i = 0; i < 8; i++) {
+            innerDivs[i] = document.createElement("div");
+            innerDivs[i].className = "image";
 
-        var image = document.createElement("img");
-        image.src = "./images/flowers"+i+".jpg";
-        image.className="img-inner";
+            var image = document.createElement("img");
+            image.src = "./images/flowers" + i + ".jpg";
+            image.className = "img-inner";
 
-        // add an onclick method for setting a big image
-        innerDivs[i].onclick = setBigImage;
-        innerDivs[i].appendChild(image);
-        wrapper.appendChild(innerDivs[i]);
+            // add an onclick method for setting a big image
+            innerDivs[i].onclick = setBigImage;
+            innerDivs[i].appendChild(image);
+            wrapper.appendChild(innerDivs[i]);
 
 
+        }
+        // finish a document formation
+        gallery.appendChild(wrapper);
+
+        // get arrows and set listeners
+        var toLeft = document.getElementById("arrowLeft");
+        var toRight = document.getElementById("arrowRight");
+        toLeft.onclick = moveBoth;
+        toRight.onclick = moveBoth;
     }
-    // finish a document formation
-    gallery.appendChild(wrapper);
-
-    // get arrows and set listeners
-    var toLeft = document.getElementById("arrowLeft");
-    var toRight = document.getElementById("arrowRight");
-    toLeft.onclick = moveBoth;
-    toRight.onclick = moveBoth;
-
 }
 
 // a method for moving in both sides
@@ -122,10 +123,14 @@ function moveBoth() {
 function setBigImage () {
     // actually, just copy a src of a small image to the big one
     var bigImageContent = document.getElementById("big-image-content");
-    bigImageContent.src = this.children[0].src;
+    if (bigImageContent) {
+        bigImageContent.src = this.children[0].src;
+    }
 
     // and do something with the description
     var descr = document.getElementById("description");
-    descr.innerHTML = this.children[0].src.split("/")[this.children[0].src.split("/").length-1];
+    if (descr) {
+        descr.innerHTML = this.children[0].src.split("/")[this.children[0].src.split("/").length-1];
+    }
 
 }
